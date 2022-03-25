@@ -1,0 +1,85 @@
+﻿<Window x:Class="Atelier.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Atelier"
+        mc:Ignorable="d"
+        Title="Ателье" Height="847.525" Width="1018" Loaded="Window_Loaded" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="imgonline-com-ua-Blur-hlNbKkehRA.png"/>
+    </Window.Background>
+    <Grid>
+        <Menu Height="23" VerticalAlignment="Top" Background="#FFF9E190" FontSize="15" HorizontalAlignment="Left" Width="1012">
+            <MenuItem Header="Файл" FontSize="15" Background="#FFF9E190" BorderBrush="{x:Null}" Width="59" >
+                <MenuItem x:Name="сlientMenuItem" Header="Открыть окно Клиенты" Background="#FFF9E190" BorderBrush="#FFDECA84" Click="сlientMenuItem_Click" />
+                <MenuItem x:Name="productMenuItem" Header="Открыть окно Изделия" Background="#FFF9E190" BorderBrush="#FFDECA84" Click="productMenuItem_Click" />
+                <MenuItem x:Name="workersMenuItem" Header="Открыть окно Сотрудники" Background="#FFF9E190" BorderBrush="#FFDECA84" Click="workersMenuItem_Click" />
+                <MenuItem x:Name="usersMenuItem" Header="Открыть окно Пользователи" Background="#FFF9E190" BorderBrush="#FFDECA84" Click="usersMenuItem_Click" />
+                <Separator Background="#FFDECA84" BorderBrush="#FFDECA84" />
+                <MenuItem x:Name="ExitItem" Header="Выход" BorderBrush="#FFDECA84" Background="#FFF9E190" Click="ExitItem_Click" />
+            </MenuItem>
+            <MenuItem Header="Экспорт данных" FontSize="15" Width="123">
+                <MenuItem x:Name="AddExcel" Header="Отправить данные в Excel" Click="AddExcel_Click" />
+            </MenuItem>
+
+        </Menu>
+        <DataGrid AutoGenerateColumns="False" CanUserSortColumns="True" x:Name="OrderGrid" HorizontalAlignment="Left" Height="429" Margin="11,81,0,0" VerticalAlignment="Top" Width="974" FontSize="16" Background="#FFE5E5E5" Foreground="#FF212121" BorderBrush="White" SelectionChanged="OrderGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Clients}" />
+                <DataGridTextColumn Header="Изделие" Binding="{Binding Products}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата заказа" Binding="{Binding Date_order}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Пример изделия">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Products.Example_product}" Width="200" Height="200" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус заказа" Binding="{Binding Order_status}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Клиента:" HorizontalAlignment="Left" Margin="151,515,0,0" VerticalAlignment="Top" FontSize="16" Foreground="#FF212121" FontWeight="Bold"/>
+        <ComboBox x:Name="comboBoxClients" HorizontalAlignment="Left" Margin="151,551,0,0" VerticalAlignment="Top" Width="187" FontSize="16" Foreground="#FF212121" />
+        <Label Content="Изделие:" HorizontalAlignment="Left" Margin="151,590,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <ComboBox x:Name="comboBoxProducts" HorizontalAlignment="Left" Margin="151,626,0,0" VerticalAlignment="Top" Width="187" FontSize="16" Foreground="#FF212121" />
+        <Label Content="Материал:" HorizontalAlignment="Left" Margin="151,667,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <ComboBox x:Name="comboBoxMaterials" HorizontalAlignment="Left" Margin="151,703,0,0" VerticalAlignment="Top" Width="187" FontSize="16" Foreground="#FF212121" />
+        <Label Content="Сотрудник:" HorizontalAlignment="Left" Margin="423,515,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <ComboBox x:Name="comboBoxWorkers" HorizontalAlignment="Left" Margin="423,551,0,0" VerticalAlignment="Top" Width="187" FontSize="16" Foreground="#FF212121" />
+        <DatePicker x:Name="dataPickerOrders" HorizontalAlignment="Left" Margin="423,624,0,0" VerticalAlignment="Top" FontSize="16" Width="187" Foreground="#FF212121" BorderBrush="{x:Null}"/>
+        <Label Content="Дата заказа:" HorizontalAlignment="Left" Margin="423,590,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <TextBox x:Name="textBoxDate" HorizontalAlignment="Left" Height="27" Margin="423,703,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="187" FontSize="16" Background="#FFE5E5E5" Foreground="#FF212121"/>
+        <Label Content="Цена:" HorizontalAlignment="Left" Margin="423,667,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <RadioButton x:Name="radioButtonProgress" Content="Выполняется" HorizontalAlignment="Left" Margin="655,715,0,0" VerticalAlignment="Top" Foreground="#FF212121"/>
+        <RadioButton x:Name="radioButtonCompleted" Content="Завершен" HorizontalAlignment="Left" Margin="655,740,0,0" VerticalAlignment="Top" Width="113" Foreground="#FF212121"/>
+        <GroupBox Header="Размер" HorizontalAlignment="Left" Height="143" Margin="643,523,0,0" VerticalAlignment="Top" Width="209" FontSize="16"/>
+        <Label Content="Номер размера:" HorizontalAlignment="Left" Margin="649,555,0,0" VerticalAlignment="Top" Height="28" RenderTransformOrigin="0.4,1.615" Width="109"/>
+        <Label Content="Обхват груди:" HorizontalAlignment="Left" Margin="649,583,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.4,1.615" Width="97"/>
+        <Label Content="Обхват талии:" HorizontalAlignment="Left" Margin="649,614,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.4,1.615" Width="97"/>
+        <TextBox x:Name="textBoxChestGirth" HorizontalAlignment="Left" Height="23" Margin="758,586,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Background="#FFE5E5E5"/>
+        <TextBox x:Name="textBoxWaistGirth" HorizontalAlignment="Left" Height="23" Margin="758,617,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Background="#FFE5E5E5"/>
+        <Label Content="см" HorizontalAlignment="Left" Margin="811,583,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.4,1.615" Width="26"/>
+        <Label Content="см" HorizontalAlignment="Left" Margin="810,614,0,0" VerticalAlignment="Top" Height="26" RenderTransformOrigin="0.4,1.615" Width="26"/>
+        <GroupBox Header="Статус заказа:" HorizontalAlignment="Left" Height="82" Margin="643,684,0,0" VerticalAlignment="Top" Width="209" FontSize="16"/>
+        <Label Content="Поиск:" HorizontalAlignment="Left" Margin="43,33,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <TextBox x:Name="textBoxSearch" HorizontalAlignment="Left" Height="27" Margin="112,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="139" FontSize="16" Background="#FFE5E5E5" TextChanged="textBoxSearch_TextChanged"/>
+        <Label Content="Фильтрация:" HorizontalAlignment="Left" Margin="492,33,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <ComboBox x:Name="comboBoxFilters" HorizontalAlignment="Left" Margin="623,37,0,0" VerticalAlignment="Top" Width="187" FontSize="16" Foreground="#FF212121" SelectionChanged="comboBoxFilters_SelectionChanged" >
+            <TextBlock Selector.IsSelected="True" x:Name="Сompleted_order"><Run Text="Выполняемые заказы"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="Finish_order"><Run Text="Завершенные заказы"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="Shirt"><Run Text="Изделие: Рубашка"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="Vest"><Run Text="Изделие: Жилетка"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="Jacket"><Run Text="Изделие: Пиджак"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="Coat"><Run Text="Изделие: Пальто"/></TextBlock>
+            <TextBlock Selector.IsSelected="True" x:Name="All_order"><Run Text="Все заказы"/></TextBlock>
+        </ComboBox>
+        <Button x:Name="buttonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="151,749,0,0" VerticalAlignment="Top" Width="146" Height="27" FontSize="16" Foreground="#FF212121" BorderBrush="#FFABADB3" Click="buttonSave_Click"/>
+        <Button x:Name="buttonDelete" Content="Удалить" HorizontalAlignment="Left" Margin="307,749,0,0" VerticalAlignment="Top" Width="146" Height="27" FontSize="16" Foreground="#FF212121" BorderBrush="#FFABADB3" Click="buttonDelete_Click"/>
+        <Button x:Name="buttonClear" Content="Очистить поля" HorizontalAlignment="Left" Margin="464,749,0,0" VerticalAlignment="Top" Width="146" Height="27" FontSize="16" Foreground="#FF212121" BorderBrush="#FFABADB3" Click="buttonClear_Click"/>
+        <TextBox x:Name="textBoxchislo" HorizontalAlignment="Left" Height="27" Margin="407,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" FontSize="16" Background="{x:Null}" BorderBrush="{x:Null}"/>
+        <Label Content="Число записей:" HorizontalAlignment="Left" Margin="272,33,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold" Foreground="#FF212121"/>
+        <TextBox x:Name="textBoxSizeNumber" HorizontalAlignment="Left" Height="23" Margin="758,555,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52" Background="#FFE5E5E5"/>
+    </Grid>
+</Window>
